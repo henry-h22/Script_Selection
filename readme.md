@@ -1,0 +1,1 @@
+Hi everyone I'm doing a course on speech synthesis and for part of my project I'm implementing a greedy algorithm that tries to create an optimal ordering of a set of utterances such that for every new utterance in the list we get the maximum number of new diphones. thanks bye.
