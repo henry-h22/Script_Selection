@@ -1,4 +1,3 @@
-# from sys import argv
 from helperFunctions import dictionaryIncrement as dI
 from helperFunctions import scorePossibleUtterancesSet as sPUs
 from helperFunctions import scorePossibleUtterancesMult as sPUm
@@ -55,7 +54,7 @@ for line in fil:
 fil.close()
 
 # store a set of all the diphones so that we can terminate once we have all of them, if we want!
-diphoneSet = overallDiphoneCounts.copy().keys()
+diphoneSet = set(overallDiphoneCounts.copy().keys())
 # print(diphoneSet)
 
 # print(udcm)
@@ -74,8 +73,16 @@ diphoneSet = overallDiphoneCounts.copy().keys()
 # print(sPUm(udcm, overallDiphoneCounts)[12:30])
 
 utterancesInOrder = []
-while (len(utterancesInOrder) < 20):
-    utterancesInOrder.append(sPUs(udcm, overallDiphoneCounts)[0][0])
-    # TODO update the scores and remove the chosen utterance from ucdm.
+while (len(utterancesInOrder) < 22):
+    chosenUtt = sPUs(udcm, overallDiphoneCounts)[0][0]
+    utterancesInOrder.append(chosenUtt)
+    currentUttCountsMap = udcm.pop(chosenUtt)
+    newOverallDiphoneCounts = overallDiphoneCounts.copy()
+    for diphone in currentUttCountsMap.keys():
+        if diphone == 'total' : continue
+        newOverallDiphoneCounts[diphone] -= currentUttCountsMap[diphone]
+        if diphone in diphoneSet:
+            diphoneSet.remove(diphone)
+    overallDiphoneCounts = newOverallDiphoneCounts
 
 print(utterancesInOrder)
