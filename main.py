@@ -2,6 +2,8 @@ from readIn import readFile
 from scriptSelection import scriptSelection
 
 udcm, overallDiphoneCounts = readFile('simonH.txt')
+possibleDiphones = set(overallDiphoneCounts.copy())
 
-print(scriptSelection(udcm.copy(), overallDiphoneCounts, 'set'))
-# print(udcm)
+setUtts = scriptSelection(udcm.copy(), overallDiphoneCounts.copy(), 'set')
+multUtts = scriptSelection(udcm.copy(), overallDiphoneCounts.copy(), 'mult')
+awareUtts = scriptSelection(udcm.copy(), overallDiphoneCounts.copy(), 'aware')
