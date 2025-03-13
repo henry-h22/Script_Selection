@@ -2,12 +2,12 @@
 # takes in a dictionary and a key, increments the value of that key by 1
 # this is safer and quicker than doing it in real time
 # note the restraint I showed by not using try/except
-def dictionaryIncrement(dictionary, key):
+def dictionaryIncrement(dictionary, key, amount = 1):
     existingKeys = dictionary.keys()
     if (key in existingKeys) :
-        dictionary[key] += 1
+        dictionary[key] += amount
     else:
-        dictionary[key] = 1
+        dictionary[key] = amount
 
 # Takes in two dictionaries and a set, returns a sorted list of ('utterance', score) tuples
 # First dictionary is nested, and goes utterance -> diphone -> count 
