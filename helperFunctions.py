@@ -9,28 +9,29 @@ def dictionaryIncrement(dictionary, key):
     else:
         dictionary[key] = 1
 
-
 # Takes in two dictionaries and a set, returns a sorted list of ('utterance', score) tuples
 # First dictionary is nested, and goes utterance -> diphone -> count 
 # Second dictionary is diphone -> score
 # Does so in a way that completely ignores number of instances of each phone in an utterance, only cares about existence, hence "set"
-# Low score means rarer mix of units
+# High score means rarer mix of units
 def scorePossibleUtterancesSet(udcm, unitScores):
     uttScoresList = []
     for utterance in udcm.keys():
         utteranceScore = 0
-        for diphone in udcm[utterance].keys(): # we're only iterating over this key set because we dont super care about number of instances
+        for diphone in udcm[utterance].keys():
             if diphone == 'total': continue
             utteranceScore += unitScores[diphone]
-        uttScoresList.append((utterance, utteranceScore * udcm[utterance]['total'])) # normalize by number of phones, higher score bad yes
+        uttScoresList.append((utterance, utteranceScore / udcm[utterance]['total'])) # normalize by number of phones
     
-    return sorted(uttScoresList, key=lambda x: x[1])
+    uttScoresList = sorted(uttScoresList, key=lambda x: x[1])
+    uttScoresList.reverse()
+    return uttScoresList
 
 # Takes in two dictionaries, returns a sorted list of ('utterance', score) tuples
 # First dictionary is nested, and goes utterance -> diphone -> count 
 # Second dictionary is diphone -> score
 # Does so in a way that cares about number of instances of each phone in an utterance, hence "mult"
-# Low score means rarer mix of units
+# High score means rarer mix of units
 def scorePossibleUtterancesMult(udcm, unitScores):
     uttScoresList = []
     for utterance in udcm.keys():
@@ -38,11 +39,47 @@ def scorePossibleUtterancesMult(udcm, unitScores):
         for diphone in udcm[utterance].keys():
             if diphone == 'total': continue
             utteranceScore += unitScores[diphone] * udcm[utterance][diphone]
-        uttScoresList.append((utterance, utteranceScore * udcm[utterance]['total'])) # normalize by number of phones
+        uttScoresList.append((utterance, utteranceScore / udcm[utterance]['total'])) # normalize by number of phones
     
-    return sorted(uttScoresList, key=lambda x: x[1])
+    uttScoresList = sorted(uttScoresList, key=lambda x: x[1])
+    uttScoresList.reverse()
+    return uttScoresList
 
-# TODO implement a sPU variant that keeps track of which units we dont have yet and which we already have. lol.
+
+def scorePossibleUtterancesAware(udcm, unitScores, diphonesNeededSet):
+    # a sPU variant that keeps track of which units we dont have yet and which we already have. lol.
+    # uses the Set logic cuz that makes sense to me. ONLY counting each instance of the thing ONCE yk?
+    uttScoresList = []
+    for utterance in udcm.keys():
+        utteranceScore = 0
+        for diphone in udcm[utterance].keys():
+            if diphone == 'total': continue
+            if diphone in diphonesNeededSet: # THIS is the crucial line :)
+                utteranceScore += unitScores[diphone]
+        uttScoresList.append((utterance, utteranceScore / udcm[utterance]['total'])) # normalize by number of phones
+    
+    uttScoresList = sorted(uttScoresList, key=lambda x: x[1])
+    uttScoresList.reverse()
+    return uttScoresList
+
+def createUnitScoresProportional(unitAmounts):
+    # We want it to maximize instead of minimize so that we can divide by number of diphones and stuff,
+    # and so that we punish redundancy in a more-straightforward way (just not counting repeats)
+    newScores = {}
+
+    # Get max value of any diphone
+    maxVal = max(unitAmounts.values())
+
+    # Then we set the score to just (maxVal - number of occurences)
+    for diphone in unitAmounts.keys():
+        newScores[diphone] = maxVal - unitAmounts[diphone]
+
+    return newScores
+
+def createUnitScoresLinear():
+    # there's some idea here where instead of retaining the zipf distribution in scores we like straighten that out
+    pass
+
 
 if __name__ == '__main__':
     u = {

@@ -1,6 +1,8 @@
 from helperFunctions import dictionaryIncrement as dI
 from helperFunctions import scorePossibleUtterancesSet as sPUs
 from helperFunctions import scorePossibleUtterancesMult as sPUm
+from helperFunctions import scorePossibleUtterancesAware as sPUa
+from helperFunctions import createUnitScoresProportional as cUS
 
 udcm = {} # utterance diphone counts map, it maps utterance key strings to maps that map diphones to their counts within the utterance
 currentUtt = 'init' # e.g. 00000, 00001, etc...
@@ -55,7 +57,9 @@ fil.close()
 
 # store a set of all the diphones so that we can terminate once we have all of them, if we want!
 diphoneSet = set(overallDiphoneCounts.copy().keys())
-# print(diphoneSet)
+
+# store a copy of ucdm for evaluation later :)
+udcmCOPY = udcm.copy()
 
 # print(udcm)
 # print(overallDiphoneCounts)
@@ -64,17 +68,24 @@ diphoneSet = set(overallDiphoneCounts.copy().keys())
 # so now overallDiphoneCounts can act as our scores dictionary because big scores are bad and little score are good
 
 # After that we'll greedily select the best one, by adding up the scores of all the utterances and normalizing by length of utterance
-# We're minimizing, (i.e. lower scores are better) so we SHOULD count repeat diphones in order to de-emphasize redundancy
 
 # These lines test the difference between the two methods of scoring utteranceScore
-# in sPUs, we only add the score of each diphone once, whereas in sPUm we add the score of each diphone once PER instance, to punish redudancy
-# In both of these, scores are normalized for number of diphones via multiplication, so that we raise the score proportional to length.
+# in sPUs, we only add the score of each diphone once, whereas in sPUm we add the score of each diphone once PER instance
+# in both we normalize by number of diphones in the utterance!
+# HYPOTHESIS: coverage is better in sPUs rather than sPUm, because sPUm rewards redundancy rather than punishing it!
+# 
 # print(sPUs(udcm, overallDiphoneCounts)[12:30])
 # print(sPUm(udcm, overallDiphoneCounts)[12:30])
 
 utterancesInOrder = []
-while (len(utterancesInOrder) < 22):
-    chosenUtt = sPUs(udcm, overallDiphoneCounts)[0][0]
+# while (len(utterancesInOrder) < 22):
+# while (len(diphoneSet) != 0):
+while (len(udcm) != 0):
+    # sortedUtterancesList = sPUs(udcm, cUS(overallDiphoneCounts))
+    # sortedUtterancesList = sPUm(udcm, cUS(overallDiphoneCounts))
+    # sortedUtterancesList = sPUa(udcm, cUS(overallDiphoneCounts), diphoneSet)
+    
+    chosenUtt = sortedUtterancesList[0][0]
     utterancesInOrder.append(chosenUtt)
     currentUttCountsMap = udcm.pop(chosenUtt)
     newOverallDiphoneCounts = overallDiphoneCounts.copy()
