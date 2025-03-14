@@ -32,7 +32,7 @@ def evaluateUtteranceScoring(utteranceList, udcm, overallDiphoneCounts, subplotT
     print('Cost function {} failed to select {} of {} possible diphones.'.format(scriptSelectionAlgorithm, len(missedDiphones), len(totalDiphoneSet)))
     print(len(missedDiphones)/len(totalDiphoneSet))
     if verbose:
-        print('Those diphones are:\n')
+        print('Those diphones that are missing are:\n')
         print(missedDiphones)
         print('Diphones and their counts:\n')
         print(diphoneCountsList[:22])
@@ -40,7 +40,12 @@ def evaluateUtteranceScoring(utteranceList, udcm, overallDiphoneCounts, subplotT
     if subplotThing is not None:
         # in this case, we called the function from visuallyEvaluateUtterances, and we want to do something very specific
         subplotThing.set_title(scriptSelectionAlgorithm)
+<<<<<<<< HEAD:evaluationScoringFunctions.py
         subplotThing.hist(rawDiphonesList, bins=len(diphoneCountsList)-1, histtype = 'stepfilled')
+========
+        # subplotThing.ecdf(rawDiphonesList)
+        subplotThing.hist(rawDiphonesList, bins=len(overallDiphoneCounts.keys()), histtype = 'stepfilled')
+>>>>>>>> main:evaluation.py
     else:
         # here we just wanna plot it :)
         fig, ax = plt.subplots()
