@@ -38,7 +38,7 @@ def evaluateUtterance(utteranceList, udcm, overallDiphoneCounts, subplotThing = 
     if subplotThing is not None:
         # in this case, we called the function from visuallyEvaluateUtterances, and we want to do something very specific
         subplotThing.set_title(scriptSelectionAlgorithm)
-        subplotThing.hist(rawDiphonesList, bins=len(overallDiphoneCounts.keys()), histtype = 'stepfilled')
+        subplotThing.hist(rawDiphonesList, bins=len(diphoneCountsList)-1, histtype = 'stepfilled')
     else:
         # here we just wanna plot it :)
         fig, ax = plt.subplots()
@@ -57,6 +57,6 @@ def visuallyEvaluateUtterances(utteranceListList, udcm, overallDiphoneCounts, co
     evaluateUtterance(utteranceListList[0], udcm.copy(), overallDiphoneCounts.copy(), ax1, costFunctions[0], verbose)
     evaluateUtterance(utteranceListList[1], udcm.copy(), overallDiphoneCounts.copy(), ax2, costFunctions[1], verbose)
     evaluateUtterance(utteranceListList[2], udcm.copy(), overallDiphoneCounts.copy(), ax3, costFunctions[2], verbose)
-    evaluateUtterance(utteranceListList[3], udcm.copy(), overallDiphoneCounts.copy(), ax4, costFunctions[3], verbose)
+    # evaluateUtterance(utteranceListList[3], udcm.copy(), overallDiphoneCounts.copy(), ax4, costFunctions[3], verbose)
 
     plt.show()
