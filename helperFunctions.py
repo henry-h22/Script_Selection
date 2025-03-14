@@ -88,9 +88,9 @@ def createUnitScoresProportional(unitAmounts):
     # Get max value of any diphone
     maxVal = max(unitAmounts.values())
 
-    # Then we set the score to just (maxVal - number of occurences)
+    # Then we set the score to just ((maxVal+1) - number of occurences) (the plus 1 is cuz no phone should have score 0)
     for diphone in unitAmounts.keys():
-        newScores[diphone] = maxVal - unitAmounts[diphone]
+        newScores[diphone] = (maxVal+1) - unitAmounts[diphone]
 
     return newScores
 
