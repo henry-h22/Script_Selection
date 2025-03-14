@@ -40,14 +40,14 @@ def evaluateUtterance(utteranceList, udcm, overallDiphoneCounts, subplotThing = 
     # return utteranceDiphoneCounts
 
 
-def visuallyEvaluateUtterances(utteranceListList, udcm, overallDiphoneCounts, selectionAlgorithms, verbose = False):
+def visuallyEvaluateUtterances(utteranceListList, udcm, overallDiphoneCounts, costFunctions, verbose = False):
     fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2,2, sharex=True, sharey=True)
     
-    fig.suptitle('Diphone Distribution over Script Selection Algorithms')
+    fig.suptitle('Diphone Distribution over Unit Cost Function')
 
-    evaluateUtterance(utteranceListList[0], udcm.copy(), overallDiphoneCounts.copy(), ax1, selectionAlgorithms[0], verbose)
-    evaluateUtterance(utteranceListList[1], udcm.copy(), overallDiphoneCounts.copy(), ax2, selectionAlgorithms[1], verbose)
-    evaluateUtterance(utteranceListList[2], udcm.copy(), overallDiphoneCounts.copy(), ax3, selectionAlgorithms[2], verbose)
-    evaluateUtterance(utteranceListList[3], udcm.copy(), overallDiphoneCounts.copy(), ax4, selectionAlgorithms[3], verbose)
+    evaluateUtterance(utteranceListList[0], udcm.copy(), overallDiphoneCounts.copy(), ax1, costFunctions[0], verbose)
+    evaluateUtterance(utteranceListList[1], udcm.copy(), overallDiphoneCounts.copy(), ax2, costFunctions[1], verbose)
+    evaluateUtterance(utteranceListList[2], udcm.copy(), overallDiphoneCounts.copy(), ax3, costFunctions[2], verbose)
+    evaluateUtterance(utteranceListList[3], udcm.copy(), overallDiphoneCounts.copy(), ax4, costFunctions[3], verbose)
 
     plt.show()
