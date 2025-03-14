@@ -5,7 +5,7 @@ from evaluation import visuallyEvaluateUtterances
 
 udcm, overallDiphoneCounts = readFile('simonH.txt')
 
-numberOfUtterances = 1500
+numberOfUtterances = 400
 
 setUtts = scriptSelection(udcm.copy(), overallDiphoneCounts.copy(), 'set', endConditionParameter=numberOfUtterances)
 multUtts = scriptSelection(udcm.copy(), overallDiphoneCounts.copy(), 'mult', endConditionParameter=numberOfUtterances)

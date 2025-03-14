@@ -3,12 +3,13 @@ from helperFunctions import scorePossibleUtterancesSet as sPUs
 from helperFunctions import scorePossibleUtterancesMult as sPUm
 from helperFunctions import scorePossibleUtterancesAware as sPUa
 from helperFunctions import scorePossibleUtterancesRandom as sPUr
-from helperFunctions import createUnitScoresProportional as cUS
+from helperFunctions import createUnitScoresProportional as cUSp
+from helperFunctions import createUnitScoresLinear as cUSl
+from helperFunctions import createUnitScoresOnes as cUSo
 
 # Possible values for parameters
 # @param selectionFunction: set, mult, aware, random
-# I'm not gonna have any of the other ones work sorry. Cool idea though!
-# TODO possibly implement different scoring functions, e.g. linear or a new one i just thought of called "just ones". lol
+# @param scoringFunction: proportional, linear, ones
 # @return a list of utterances, in order :)
 def scriptSelection(udcm, overallDiphoneCounts, selectionFunction = 'set', endCondition = 'numberChosen', endConditionParameter = 22, scoringFunction = 'proportional'):
 
@@ -29,18 +30,30 @@ def scriptSelection(udcm, overallDiphoneCounts, selectionFunction = 'set', endCo
     while (len(utterancesInOrder) < endConditionParameter):
     # while (len(diphoneSet) != 0):
     # while (len(udcm) != 0):
+
+        match scoringFunction:
+            case 'proportional':
+                scores = cUSp(overallDiphoneCounts.copy())
+            case 'linear':
+                scores = cUSl(overallDiphoneCounts.copy())
+            case 'ones':
+                scores = cUSo(overallDiphoneCounts.copy())
+            case _:
+                print('uuHHH just using proportional')
+                scores = cUSp(overallDiphoneCounts)
+
         match selectionFunction:
             case 'set':
-                sortedUtterancesList = sPUs(udcm, cUS(overallDiphoneCounts))
+                sortedUtterancesList = sPUs(udcm, scores)
             case 'mult':
-                sortedUtterancesList = sPUm(udcm, cUS(overallDiphoneCounts))
+                sortedUtterancesList = sPUm(udcm, scores)
             case 'aware':
-                sortedUtterancesList = sPUa(udcm, cUS(overallDiphoneCounts), diphoneSet)
+                sortedUtterancesList = sPUa(udcm, scores, diphoneSet)
             case 'random':
                 sortedUtterancesList = sPUr(udcm)
             case _:
                 print('uhhhhH just using set idk man')
-                sortedUtterancesList = sPUs(udcm, cUS(overallDiphoneCounts))
+                sortedUtterancesList = sPUs(udcm, scores)
         
         chosenUtt = sortedUtterancesList[0][0]
         utterancesInOrder.append(chosenUtt)
