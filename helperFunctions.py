@@ -67,10 +67,15 @@ def scorePossibleUtterancesAware(udcm, unitScores, diphonesNeededSet):
 
 def scorePossibleUtterancesRandom(udcm):
     # a sPU variant that does things randomly, to compare our methods and see if they do better lol
-    uttScoresList = list(udcm.keys())
+    tempList = list(udcm.keys())
 
     random.seed(datetime.now().timestamp())
-    random.shuffle(uttScoresList)
+    random.shuffle(tempList)
+
+    uttScoresList = []
+
+    for utt in tempList:
+        uttScoresList.append((utt, 22))
 
     return uttScoresList
 
