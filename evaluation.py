@@ -1,11 +1,13 @@
 import matplotlib.pyplot as plt
 from helperFunctions import dictionaryIncrement as dI
+from helperFunctions import dictionaryToSortedTuplesList as sortDict
 
 def evaluateUtterance(utteranceList, udcm, overallDiphoneCounts, subplotThing = None, scriptSelectionAlgorithm = '__', verbose = False):
 
     # Create our variables
     totalDiphoneSet = set(overallDiphoneCounts.copy().keys())
     selectedDiphonesSet = set([])
+    utteranceDiphoneCounts = {}
     rawDiphonesList = []
 
     # Then we wanna create the data that we want to graph, which is a list of every diphone in the whole utterance list
@@ -14,20 +16,19 @@ def evaluateUtterance(utteranceList, udcm, overallDiphoneCounts, subplotThing = 
         for diphone in udcm[utterance].keys():
             selectedDiphonesSet.add(diphone) # we add the diphone to the set of selected units
             if diphone == 'total': continue
-            dI(utterranceDiphoneCounts, diphone, udcm[utterance][diphone])
+            dI(utteranceDiphoneCounts, diphone, udcm[utterance][diphone])
 
-    
+    diphoneCountsList = sortDict(utteranceDiphoneCounts)
+    diphoneCountsList.reverse()
 
-    for utterance in utteranceList:
-        for diphone in udcm[utterance].keys():
-            selectedDiphonesSet.add(diphone) # we add the diphone to the set of selected units
-            if diphone == 'total': continue
-            for _ in range(udcm[utterance][diphone]):
-                rawDiphonesList.append(hash(diphone)) # we append the hashcode here because pyplot's ecdf function can't take strings
+    for diphoneRank in range(len(diphoneCountsList)):
+        diphone, count = diphoneCountsList[diphoneRank]
+        if diphone == 'total': continue
+        for _ in range(count):
+            rawDiphonesList.append(diphoneRank) # we append the hashcode here because pyplot's ecdf function can't take strings
 
     missedDiphones = totalDiphoneSet - selectedDiphonesSet
 
-    
     print('Cost function {} failed to select {} of {} possible diphones.'.format(scriptSelectionAlgorithm, len(missedDiphones), len(totalDiphoneSet)))
     print(len(missedDiphones)/len(totalDiphoneSet))
     if verbose:
