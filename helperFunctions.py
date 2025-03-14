@@ -95,7 +95,7 @@ def createUnitScoresProportional(unitAmounts):
 def createUnitScoresLinear(unitAmounts):
     # there's some idea here where instead of retaining the zipf distribution in scores we like straighten that out
 
-    if (total in unitAmounts):
+    if ('total' in unitAmounts.keys()):
         unitAmounts.pop('total')
 
     diphonesList = []
