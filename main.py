@@ -5,10 +5,12 @@ from evaluation import visuallyEvaluateUtterances
 
 udcm, overallDiphoneCounts = readFile('simonH.txt')
 
-setUtts = scriptSelection(udcm.copy(), overallDiphoneCounts.copy(), 'set', endConditionParameter=400)
-multUtts = scriptSelection(udcm.copy(), overallDiphoneCounts.copy(), 'mult', endConditionParameter=400)
-awareUtts = scriptSelection(udcm.copy(), overallDiphoneCounts.copy(), 'aware', endConditionParameter=400)
-randUtts = scriptSelection(udcm.copy(), overallDiphoneCounts.copy(), 'random', endConditionParameter=400)
+numberOfUtterances = 1500
+
+setUtts = scriptSelection(udcm.copy(), overallDiphoneCounts.copy(), 'set', endConditionParameter=numberOfUtterances)
+multUtts = scriptSelection(udcm.copy(), overallDiphoneCounts.copy(), 'mult', endConditionParameter=numberOfUtterances)
+awareUtts = scriptSelection(udcm.copy(), overallDiphoneCounts.copy(), 'aware', endConditionParameter=numberOfUtterances)
+randUtts = scriptSelection(udcm.copy(), overallDiphoneCounts.copy(), 'random', endConditionParameter=numberOfUtterances)
 
 utteranceListList = [setUtts, multUtts, awareUtts, randUtts]
 
