@@ -27,8 +27,8 @@ def scriptSelection(udcm, overallDiphoneCounts, selectionFunction = 'set', endCo
     # print(sPUm(udcm, overallDiphoneCounts)[12:30])
 
     utterancesInOrder = []
-    while (len(utterancesInOrder) < endConditionParameter):
-    # while (len(diphoneSet) != 0):
+    # while (len(utterancesInOrder) < endConditionParameter):
+    while (len(diphoneSet) != 0):
     # while (len(udcm) != 0):
 
         match scoringFunction:
