@@ -36,7 +36,7 @@ def evaluateUtterance(utteranceList, udcm, overallDiphoneCounts, subplotThing = 
         print('Those diphones that are missing are:\n')
         print(missedDiphones)
         print('Diphones and their counts:\n')
-        print(diphoneCountsList)
+        print(diphoneCountsList[:22])
 
     if subplotThing is not None:
         # in this case, we called the function from visuallyEvaluateUtterances, and we want to do something very specific
