@@ -32,7 +32,7 @@ def evaluateUtteranceScoring(utteranceList, udcm, overallDiphoneCounts, subplotT
     print('Cost function {} failed to select {} of {} possible diphones.'.format(scriptSelectionAlgorithm, len(missedDiphones), len(totalDiphoneSet)))
     print(len(missedDiphones)/len(totalDiphoneSet))
     if verbose:
-        print('Those diphones are:\n')
+        print('Those diphones that are missing are:\n')
         print(missedDiphones)
         print('Diphones and their counts:\n')
         print(diphoneCountsList[:22])
