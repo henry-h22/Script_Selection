@@ -1,19 +1,20 @@
 from readIn import readFile
 from scriptSelection import scriptSelection
-# from evaluationScoringFunctions import evaluateUtteranceScoring
+from evaluation import visuallyEvaluateUtterances
 from evaluationScoringFunctions import visuallyEvaluateUtterancesScoring
 
 udcm, overallDiphoneCounts = readFile('simonH.txt')
 
 numberOfUtterances = 400
 
-propUtts = scriptSelection(udcm.copy(), overallDiphoneCounts.copy(), 'aware', endConditionParameter=numberOfUtterances, scoringFunction='proportional')
-linUtts = scriptSelection(udcm.copy(), overallDiphoneCounts.copy(), 'aware', endConditionParameter=numberOfUtterances, scoringFunction='linear')
-onesUtts = scriptSelection(udcm.copy(), overallDiphoneCounts.copy(), 'aware', endConditionParameter=numberOfUtterances, scoringFunction='ones')
-randUtts = scriptSelection(udcm.copy(), overallDiphoneCounts.copy(), 'random', endConditionParameter=numberOfUtterances)
+utteranceListList = []
 
-utteranceListList = [propUtts, linUtts, onesUtts, randUtts]
-costFunctionsList = ['Proportional', 'Linear', 'Ones', 'Random']
+utteranceListList.append(scriptSelection(udcm.copy(), overallDiphoneCounts.copy(), 'aware', endConditionParameter=numberOfUtterances, scoringFunction='proportional'))
+utteranceListList.append(scriptSelection(udcm.copy(), overallDiphoneCounts.copy(), 'aware', endConditionParameter=numberOfUtterances, scoringFunction='linear'))
+utteranceListList.append(scriptSelection(udcm.copy(), overallDiphoneCounts.copy(), 'aware', endConditionParameter=numberOfUtterances, scoringFunction='ones'))
+utteranceListList.append(scriptSelection(udcm.copy(), overallDiphoneCounts.copy(), 'random', endConditionParameter=numberOfUtterances))
+
+namesList = ['Proportional', 'Linear', 'Ones', 'Butts'] # DESCRIBE the four things
 
 # print(evaluateUtterance(randUtts, udcm.copy(), overallDiphoneCounts.copy()))
-visuallyEvaluateUtterances(utteranceListList, udcm.copy(), overallDiphoneCounts.copy(), ['Set', 'Multiple', 'Aware', 'Random'], verbose=True)
+visuallyEvaluateUtterancesScoring(utteranceListList, udcm.copy(), overallDiphoneCounts.copy(), namesList, verbose=True)
