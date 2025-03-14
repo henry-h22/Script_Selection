@@ -20,7 +20,7 @@ def evaluateUtterance(utteranceList, udcm, overallDiphoneCounts):
     rawDiphonesList = []
     for diphone in utterranceDiphoneCounts.keys():
         for _ in range(utterranceDiphoneCounts[diphone]):
-            rawDiphonesList.append(diphone)
+            rawDiphonesList.append(hash(diphone))
 
     fig, ax = plt.subplots()
     # ax.hist(rawDiphonesList, bins = len(utterranceDiphoneCounts.keys()), linewidth = 0.022)
