@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 from helperFunctions import dictionaryIncrement as dI
 from helperFunctions import dictionaryToSortedTuplesList as sortDict
 
-def evaluateUtteranceScoring(utteranceList, udcm, overallDiphoneCounts, subplotThing = None, scriptSelectionAlgorithm = '__', verbose = False):
+def evaluateUtterance(utteranceList, udcm, overallDiphoneCounts, subplotThing = None, scriptSelectionAlgorithm = '__', verbose = False):
 
     # Create our variables
     totalDiphoneSet = set(overallDiphoneCounts.copy().keys())
@@ -29,17 +29,19 @@ def evaluateUtteranceScoring(utteranceList, udcm, overallDiphoneCounts, subplotT
 
     missedDiphones = totalDiphoneSet - selectedDiphonesSet
 
-    print('Cost function {} failed to select {} of {} possible diphones.'.format(scriptSelectionAlgorithm, len(missedDiphones), len(totalDiphoneSet)))
+    
+    print('Script selection algorithm {} failed to select {} of {} possible diphones.'.format(scriptSelectionAlgorithm, len(missedDiphones), len(totalDiphoneSet)))
     print(len(missedDiphones)/len(totalDiphoneSet))
     if verbose:
         print('Those diphones that are missing are:\n')
         print(missedDiphones)
-        print('First 22 diphones and their counts:\n')
+        print('Diphones and their counts:\n')
         print(diphoneCountsList[:22])
 
     if subplotThing is not None:
         # in this case, we called the function from visuallyEvaluateUtterances, and we want to do something very specific
         subplotThing.set_title(scriptSelectionAlgorithm)
+        # subplotThing.ecdf(rawDiphonesList)
         subplotThing.hist(rawDiphonesList, bins=len(diphoneCountsList)-1, histtype = 'stepfilled')
     else:
         # here we just wanna plot it :)
@@ -51,14 +53,14 @@ def evaluateUtteranceScoring(utteranceList, udcm, overallDiphoneCounts, subplotT
     # return utteranceDiphoneCounts
 
 
-def visuallyEvaluateUtterancesScoring(utteranceListList, udcm, overallDiphoneCounts, costFunctions, verbose = False):
+def visuallyEvaluateUtterances(utteranceListList, udcm, overallDiphoneCounts, selectionAlgorithms, verbose = False):
     fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2,2, sharex=True, sharey=True)
     
-    fig.suptitle('Diphone Distribution over Unit Cost Function')
+    fig.suptitle('Diphone Distribution over Script Selection Algorithms')
 
-    evaluateUtterance(utteranceListList[0], udcm.copy(), overallDiphoneCounts.copy(), ax1, costFunctions[0], verbose)
-    evaluateUtterance(utteranceListList[1], udcm.copy(), overallDiphoneCounts.copy(), ax2, costFunctions[1], verbose)
-    evaluateUtterance(utteranceListList[2], udcm.copy(), overallDiphoneCounts.copy(), ax3, costFunctions[2], verbose)
-    # evaluateUtterance(utteranceListList[3], udcm.copy(), overallDiphoneCounts.copy(), ax4, costFunctions[3], verbose)
+    evaluateUtterance(utteranceListList[0], udcm.copy(), overallDiphoneCounts.copy(), ax1, selectionAlgorithms[0], verbose)
+    evaluateUtterance(utteranceListList[1], udcm.copy(), overallDiphoneCounts.copy(), ax2, selectionAlgorithms[1], verbose)
+    evaluateUtterance(utteranceListList[2], udcm.copy(), overallDiphoneCounts.copy(), ax3, selectionAlgorithms[2], verbose)
+    evaluateUtterance(utteranceListList[3], udcm.copy(), overallDiphoneCounts.copy(), ax4, selectionAlgorithms[3], verbose)
 
     plt.show()
