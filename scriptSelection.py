@@ -2,10 +2,11 @@ from readIn import readFile
 from helperFunctions import scorePossibleUtterancesSet as sPUs
 from helperFunctions import scorePossibleUtterancesMult as sPUm
 from helperFunctions import scorePossibleUtterancesAware as sPUa
+from helperFunctions import scorePossibleUtterancesRandom as sPUr
 from helperFunctions import createUnitScoresProportional as cUS
 
 # Possible values for parameters
-# @param selectionFunction: set, mult, aware
+# @param selectionFunction: set, mult, aware, random
 # I'm not gonna have any of the other ones work sorry. Cool idea though!
 # TODO possibly implement different scoring functions, e.g. linear or a new one i just thought of called "just ones". lol
 # @return a list of utterances, in order :)
@@ -35,6 +36,8 @@ def scriptSelection(udcm, overallDiphoneCounts, selectionFunction = 'set', endCo
                 sortedUtterancesList = sPUm(udcm, cUS(overallDiphoneCounts))
             case 'aware':
                 sortedUtterancesList = sPUa(udcm, cUS(overallDiphoneCounts), diphoneSet)
+            case 'random':
+                sortedUtterancesList = sPUr(udcm)
             case _:
                 print('uhhhhH just using set idk man')
                 sortedUtterancesList = sPUs(udcm, cUS(overallDiphoneCounts))

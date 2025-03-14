@@ -1,3 +1,5 @@
+import random
+from datetime import datetime
 
 # takes in a dictionary and a key, increments the value of that key by 1
 # this is safer and quicker than doing it in real time
@@ -61,6 +63,17 @@ def scorePossibleUtterancesAware(udcm, unitScores, diphonesNeededSet):
     uttScoresList = sorted(uttScoresList, key=lambda x: x[1])
     uttScoresList.reverse()
     return uttScoresList
+
+
+def scorePossibleUtterancesRandom(udcm):
+    # a sPU variant that does things randomly, to compare our methods and see if they do better lol
+    uttScoresList = list(udcm.keys())
+
+    random.seed(datetime.now().timestamp())
+    random.shuffle(uttScoresList)
+
+    return uttScoresList
+
 
 def createUnitScoresProportional(unitAmounts):
     # We want it to maximize instead of minimize so that we can divide by number of diphones and stuff,
