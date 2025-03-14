@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 from helperFunctions import dictionaryIncrement as dI
 
-def evaluateUtterance(utteranceList, udcm, overallDiphoneCounts):
+def evaluateUtterance(utteranceList, udcm, overallDiphoneCounts, subplotThing = None):
 
     # Create our diphone set, for later
     diphoneSet = set(overallDiphoneCounts.copy().keys())
@@ -22,9 +22,24 @@ def evaluateUtterance(utteranceList, udcm, overallDiphoneCounts):
         for _ in range(utterranceDiphoneCounts[diphone]):
             rawDiphonesList.append(hash(diphone))
 
-    fig, ax = plt.subplots()
-    # ax.hist(rawDiphonesList, bins = len(utterranceDiphoneCounts.keys()), linewidth = 0.022)
-    ax.ecdf(rawDiphonesList)
-    plt.show()
+    if subplotThing is not None:
+        subplotThing.ecdf(rawDiphonesList)
+    else:
+        fig, ax = plt.subplots()
+        # ax.hist(rawDiphonesList, bins = len(utterranceDiphoneCounts.keys()), linewidth = 0.022)
+        ax.ecdf(rawDiphonesList)
+        plt.show()
 
     # return utterranceDiphoneCounts
+
+
+def visuallyEvaluateUtterances(utteranceListList, udcm, overallDiphoneCounts):
+    fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2,2, sharex=True, sharey=True)
+    
+    evaluateUtterance(utteranceListList[0], udcm.copy(), overallDiphoneCounts.copy(), ax1)
+    evaluateUtterance(utteranceListList[1], udcm.copy(), overallDiphoneCounts.copy(), ax2)
+    evaluateUtterance(utteranceListList[2], udcm.copy(), overallDiphoneCounts.copy(), ax3)
+    evaluateUtterance(utteranceListList[3], udcm.copy(), overallDiphoneCounts.copy(), ax4)
+
+    plt.show()
+    
