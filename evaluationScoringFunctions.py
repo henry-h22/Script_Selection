@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 from helperFunctions import dictionaryIncrement as dI
 from helperFunctions import dictionaryToSortedTuplesList as sortDict
 
-def evaluateUtterance(utteranceList, udcm, overallDiphoneCounts, subplotThing = None, scriptSelectionAlgorithm = '__', verbose = False):
+def evaluateUtteranceScoring(utteranceList, udcm, overallDiphoneCounts, subplotThing = None, scriptSelectionAlgorithm = '__', verbose = False):
 
     # Create our variables
     totalDiphoneSet = set(overallDiphoneCounts.copy().keys())
@@ -35,7 +35,7 @@ def evaluateUtterance(utteranceList, udcm, overallDiphoneCounts, subplotThing = 
         print('Those diphones are:\n')
         print(missedDiphones)
         print('Diphones and their counts:\n')
-        print(diphoneCountsList)
+        print(diphoneCountsList[:22])
 
     if subplotThing is not None:
         # in this case, we called the function from visuallyEvaluateUtterances, and we want to do something very specific
@@ -51,7 +51,7 @@ def evaluateUtterance(utteranceList, udcm, overallDiphoneCounts, subplotThing = 
     # return utteranceDiphoneCounts
 
 
-def visuallyEvaluateUtterances(utteranceListList, udcm, overallDiphoneCounts, costFunctions, verbose = False):
+def visuallyEvaluateUtterancesScoring(utteranceListList, udcm, overallDiphoneCounts, costFunctions, verbose = False):
     fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2,2, sharex=True, sharey=True)
     
     fig.suptitle('Diphone Distribution over Unit Cost Function')
