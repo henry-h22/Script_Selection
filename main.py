@@ -16,4 +16,4 @@ utteranceListList = [propUtts, linUtts, onesUtts, randUtts]
 costFunctionsList = ['Proportional', 'Linear', 'Ones', 'Random']
 
 # print(evaluateUtterance(randUtts, udcm.copy(), overallDiphoneCounts.copy()))
-visuallyEvaluateUtterances(utteranceListList, udcm.copy(), overallDiphoneCounts.copy(), costFunctionsList)
+visuallyEvaluateUtterances(utteranceListList, udcm.copy(), overallDiphoneCounts.copy(), costFunctionsList, verbose=True)
