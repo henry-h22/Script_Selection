@@ -15,4 +15,4 @@ randUtts = scriptSelection(udcm.copy(), overallDiphoneCounts.copy(), 'random', e
 utteranceListList = [setUtts, multUtts, awareUtts, randUtts]
 
 # print(evaluateUtterance(randUtts, udcm.copy(), overallDiphoneCounts.copy()))
-visuallyEvaluateUtterances(utteranceListList, udcm.copy(), overallDiphoneCounts.copy(), ['Set', 'Multiple', 'Aware', 'Random'])
+visuallyEvaluateUtterances(utteranceListList, udcm.copy(), overallDiphoneCounts.copy(), ['Set', 'Multiple', 'Aware', 'Random'], verbose=True)
