@@ -1,15 +1,8 @@
 import random
 from datetime import datetime
 
-# takes in a dictionary and a key, increments the value of that key by 1
-# this is safer and quicker than doing it in real time
-# note the restraint I showed by not using try/except
-def dictionaryIncrement(dictionary, key, amount = 1):
-    existingKeys = dictionary.keys()
-    if (key in existingKeys) :
-        dictionary[key] += amount
-    else:
-        dictionary[key] = amount
+
+# --==+==-- Selection Algorithms --==+==--
 
 # Takes in two dictionaries and a set, returns a sorted list of ('utterance', score) tuples
 # First dictionary is nested, and goes utterance -> diphone -> count 
@@ -29,6 +22,7 @@ def scorePossibleUtterancesSet(udcm, unitScores):
     uttScoresList.reverse()
     return uttScoresList
 
+
 # Takes in two dictionaries, returns a sorted list of ('utterance', score) tuples
 # First dictionary is nested, and goes utterance -> diphone -> count 
 # Second dictionary is diphone -> score
@@ -40,7 +34,7 @@ def scorePossibleUtterancesMult(udcm, unitScores):
         utteranceScore = 0
         for diphone in udcm[utterance].keys():
             if diphone == 'total': continue
-            utteranceScore += unitScores[diphone] * udcm[utterance][diphone]
+            utteranceScore += unitScores[diphone] * udcm[utterance][diphone] # as opposed to just adding it once :)
         uttScoresList.append((utterance, utteranceScore / udcm[utterance]['total'])) # normalize by number of phones
     
     uttScoresList = sorted(uttScoresList, key=lambda x: x[1])
@@ -80,6 +74,9 @@ def scorePossibleUtterancesRandom(udcm):
     return uttScoresList
 
 
+# --==+==-- Scoring Functions --==+==--
+
+
 def createUnitScoresProportional(unitAmounts):
     # We want it to maximize instead of minimize so that we can divide by number of diphones and stuff,
     # and so that we punish redundancy in a more-straightforward way (just not counting repeats)
@@ -94,41 +91,53 @@ def createUnitScoresProportional(unitAmounts):
 
     return newScores
 
-def createUnitScoresLinear():
+
+def createUnitScoresLinear(unitAmounts):
     # there's some idea here where instead of retaining the zipf distribution in scores we like straighten that out
-    pass
+
+    if ('total' in unitAmounts.keys()):
+        unitAmounts.pop('total')
+
+    diphonesList = []
+    for diphone in unitAmounts.keys():
+        diphonesList.append((diphone, unitAmounts[diphone]))
+    
+    diphonesList = sorted(diphonesList, key=lambda x: x[1])
+    diphonesList.reverse()
+    
+    scores = {}
+    for score in range(len(diphonesList)):
+        scores[diphonesList[score][0]] = score + 1 # again, we don't want any diphone to have a score of 0
+
+    return scores
 
 
-if __name__ == '__main__':
-    u = {
-        '00001' : {
-            'dh_@' : 2,
-            'ii_t' : 1,
-            'total' : 3
-        },
-        '00002' : {
-            'dh_@' : 9,
-            'b_u' : 2,
-            'j_uu' : 1,
-            'total' : 12
-        }
-    }
+def createUnitScoresOnes(unitAmounts):
+    # For this algorithm, we give every diphone a score of 1
+    scores = {}
+    for diphone in unitAmounts.keys():
+        scores[diphone] = 1
+    return scores
 
-    # random idc
-    sc = {
-        'dh_@' : 0.1,
-        'ii_t' : 1,
-        'b_u' : 0.5,
-        'j_uu' : 0.001
-    }
 
-    # print(u)
-    # print(u['00001']['total'])
-    # print(sc)
+# --==+==-- Other Helper Functions --==+==--
 
-    # TODO two design decisions:
-        # do we count/score repeats. we wanna have them make an utterance less good, which leads us to...
-        # do we minimize or maximize score? do we give rare units (diphones) a high or low score?
-        # lets WRITE ABOUT THIS when we do it? or just take notes idrc.
 
-    print(scorePossibleUtterancesSet(u, sc))
+# takes in a dictionary and a key, increments the value of that key by 1
+# this is safer and quicker than doing it in real time
+# note the restraint I showed by not using try/except
+def dictionaryIncrement(dictionary, key, amount = 1):
+    existingKeys = dictionary.keys()
+    if (key in existingKeys) :
+        dictionary[key] += amount
+    else:
+        dictionary[key] = amount
+
+
+def dictionaryToSortedTuplesList(dictionary):
+    # Function takes in a dictionary that maps keys to numerical values
+    # Returns a list of key, value tuples sorted by value, lowest first
+    tuplesList = []
+    for key in dictionary.keys():
+        tuplesList.append((key, dictionary[key]))
+    return(sorted(tuplesList, key=lambda x: x[1]))

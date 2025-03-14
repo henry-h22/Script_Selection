@@ -1,11 +1,13 @@
 import matplotlib.pyplot as plt
 from helperFunctions import dictionaryIncrement as dI
+from helperFunctions import dictionaryToSortedTuplesList as sortDict
 
 def evaluateUtterance(utteranceList, udcm, overallDiphoneCounts, subplotThing = None, scriptSelectionAlgorithm = '__', verbose = False):
 
     # Create our variables
     totalDiphoneSet = set(overallDiphoneCounts.copy().keys())
     selectedDiphonesSet = set([])
+    utteranceDiphoneCounts = {}
     rawDiphonesList = []
 
     # Then we wanna create the data that we want to graph, which is a list of every diphone in the whole utterance list
@@ -14,8 +16,16 @@ def evaluateUtterance(utteranceList, udcm, overallDiphoneCounts, subplotThing = 
         for diphone in udcm[utterance].keys():
             selectedDiphonesSet.add(diphone) # we add the diphone to the set of selected units
             if diphone == 'total': continue
-            for _ in range(udcm[utterance][diphone]):
-                rawDiphonesList.append(hash(diphone)) # we append the hashcode here because pyplot's ecdf function can't take strings
+            dI(utteranceDiphoneCounts, diphone, udcm[utterance][diphone])
+
+    diphoneCountsList = sortDict(utteranceDiphoneCounts)
+    diphoneCountsList.reverse()
+
+    for diphoneRank in range(len(diphoneCountsList)):
+        diphone, count = diphoneCountsList[diphoneRank]
+        if diphone == 'total': continue
+        for _ in range(count):
+            rawDiphonesList.append(diphoneRank) # we append the hashcode here because pyplot's ecdf function can't take strings
 
     missedDiphones = totalDiphoneSet - selectedDiphonesSet
 
@@ -29,7 +39,8 @@ def evaluateUtterance(utteranceList, udcm, overallDiphoneCounts, subplotThing = 
     if subplotThing is not None:
         # in this case, we called the function from visuallyEvaluateUtterances, and we want to do something very specific
         subplotThing.set_title(scriptSelectionAlgorithm)
-        subplotThing.ecdf(rawDiphonesList)
+        # subplotThing.ecdf(rawDiphonesList)
+        subplotThing.hist(rawDiphonesList, bins=len(overallDiphoneCounts.keys()), histtype = 'stepfilled')
     else:
         # here we just wanna plot it :)
         fig, ax = plt.subplots()
