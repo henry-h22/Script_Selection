@@ -132,3 +132,12 @@ def dictionaryIncrement(dictionary, key, amount = 1):
         dictionary[key] += amount
     else:
         dictionary[key] = amount
+
+
+def dictionaryToSortedTuplesList(dictionary):
+    # Function takes in a dictionary that maps keys to numerical values
+    # Returns a list of key, value tuples sorted by value, lowest first
+    tuplesList = []
+    for key in dictionary.keys():
+        tuplesList.append((key, dictionary[key]))
+    return(sorted(tuplesList, key=lambda x: x[1]))

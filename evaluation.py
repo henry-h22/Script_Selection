@@ -14,13 +14,21 @@ def evaluateUtterance(utteranceList, udcm, overallDiphoneCounts, subplotThing = 
         for diphone in udcm[utterance].keys():
             selectedDiphonesSet.add(diphone) # we add the diphone to the set of selected units
             if diphone == 'total': continue
+            dI(utterranceDiphoneCounts, diphone, udcm[utterance][diphone])
+
+    
+
+    for utterance in utteranceList:
+        for diphone in udcm[utterance].keys():
+            selectedDiphonesSet.add(diphone) # we add the diphone to the set of selected units
+            if diphone == 'total': continue
             for _ in range(udcm[utterance][diphone]):
                 rawDiphonesList.append(hash(diphone)) # we append the hashcode here because pyplot's ecdf function can't take strings
 
     missedDiphones = totalDiphoneSet - selectedDiphonesSet
 
     
-    print('Script selection algorithm {} failed to select {} of {} possible diphones.'.format(scriptSelectionAlgorithm, len(missedDiphones), len(totalDiphoneSet)))
+    print('Cost function {} failed to select {} of {} possible diphones.'.format(scriptSelectionAlgorithm, len(missedDiphones), len(totalDiphoneSet)))
     print(len(missedDiphones)/len(totalDiphoneSet))
     if verbose:
         print('Those diphones are:\n')
@@ -29,7 +37,7 @@ def evaluateUtterance(utteranceList, udcm, overallDiphoneCounts, subplotThing = 
     if subplotThing is not None:
         # in this case, we called the function from visuallyEvaluateUtterances, and we want to do something very specific
         subplotThing.set_title(scriptSelectionAlgorithm)
-        subplotThing.ecdf(rawDiphonesList)
+        subplotThing.hist(rawDiphonesList, bins=len(overallDiphoneCounts.keys()), histtype = 'stepfilled')
     else:
         # here we just wanna plot it :)
         fig, ax = plt.subplots()
