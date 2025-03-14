@@ -1,7 +1,7 @@
 from readIn import readFile
 from scriptSelection import scriptSelection
-from evaluation import evaluateUtterance
-from evaluation import visuallyEvaluateUtterances
+# from evaluationScoringFunctions import evaluateUtteranceScoring
+from evaluationScoringFunctions import visuallyEvaluateUtterancesScoring
 
 udcm, overallDiphoneCounts = readFile('simonH.txt')
 
@@ -16,4 +16,4 @@ utteranceListList = [propUtts, linUtts, onesUtts, randUtts]
 costFunctionsList = ['Proportional', 'Linear', 'Ones', 'Random']
 
 # print(evaluateUtterance(randUtts, udcm.copy(), overallDiphoneCounts.copy()))
-visuallyEvaluateUtterances(utteranceListList, udcm.copy(), overallDiphoneCounts.copy(), costFunctionsList, verbose=True)
+visuallyEvaluateUtterancesScoring(utteranceListList, udcm.copy(), overallDiphoneCounts.copy(), costFunctionsList, verbose=True)
