@@ -141,3 +141,24 @@ def dictionaryToSortedTuplesList(dictionary):
     for key in dictionary.keys():
         tuplesList.append((key, dictionary[key]))
     return(sorted(tuplesList, key=lambda x: x[1]))
+
+
+def resetNumberedUtts(filename = 'utts.data', scriptNameLength = 10):
+    # Given the file name for an utts.data-esque file, reset the numbering system (great after manual pruning!)
+    fileRead = open(filename, "r")
+    currentLines = fileRead.readlines()
+    print(currentLines)
+    fileRead.close()
+
+    fileWrite = open(filename, "w")
+    lineNum = 1
+    newLines = []
+    for line in currentLines:
+        newLines.append(line[:(3+scriptNameLength)] + str(lineNum).zfill(5) + line[8+scriptNameLength:])
+        lineNum += 1
+    print(newLines)
+    fileWrite.writelines(newLines)
+
+
+if __name__ == '__main__':
+    resetNumberedUtts()
