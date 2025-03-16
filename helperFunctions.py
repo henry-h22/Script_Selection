@@ -147,7 +147,6 @@ def resetNumberedUtts(filename = 'utts.data', scriptNameLength = 10):
     # Given the file name for an utts.data-esque file, reset the numbering system (great after manual pruning!)
     fileRead = open(filename, "r")
     currentLines = fileRead.readlines()
-    print(currentLines)
     fileRead.close()
 
     fileWrite = open(filename, "w")
@@ -156,7 +155,6 @@ def resetNumberedUtts(filename = 'utts.data', scriptNameLength = 10):
     for line in currentLines:
         newLines.append(line[:(3+scriptNameLength)] + str(lineNum).zfill(5) + line[8+scriptNameLength:])
         lineNum += 1
-    print(newLines)
     fileWrite.writelines(newLines)
 
 
