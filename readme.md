@@ -11,8 +11,9 @@ specifically:
 - MAYBE read some of the other papers from that module, see what they're on about. lol.
 
 NOTES:
-- we have changed the end behavior to be 'either we have this many utterances or we got all of the diphones'
+- we have NOT changed the end behavior to be 'either we have this many utterances or we got all of the diphones'
 - another metric by which to compare methods could be counting how many utterances they need to get every diphone. or something
+- we can totally put pseudocode in this paper yeah?
 
 - WE CAN COMPARE PHONES HISTOGRAMS RATHER THAN DIPHONE HISTOGRAMS. THAT ROCKS. YAY!!!!
     - hey MULT script selection really shows off the differences in cost functions visually
@@ -52,7 +53,7 @@ NOTES BEING TAKEN DURING THE LITERAL SCRIPT SELECTION:
         - a: in one breath (too long)
         - b: in one take (too complex)
     - if an utterance is too long, but it includes a word that we consider to be domain-specific (i.e. HMM, Gaussian, Zipf, etc), we delete some of the utterance. In some cases
-        - e.g. ( henrySimon_00301 "But if you go back to look at the material on token passing, you'll realize that we can ask the tokens to remember anything at all while they're passing through the HMM states, not just the ends of words" ) becomes "we can ask the tokens to remember anything at all while they're passing through the HMM states"
+        - e.g. ( henrySimon_00303 "But if you go back to look at the material on token passing, you'll realize that we can ask the tokens to remember anything at all while they're passing through the HMM states, not just the ends of words" ) becomes "we can ask the tokens to remember anything at all while they're passing through the HMM states"
     - Hilariously (I think), one of the longest utterances that we had to remove from the data was "The sort of things that you might include in your script design might be: choosing sentences that are easy to read out loud, so that your speaker can say them fluently without too many mistakes; you might want to cover low-frequency linguistic forms such as questions; you might want to boost the coverage of phrase-final and phrase-initial units, because in long sentences they're very rare; and you might want to include some domain-specific material, if you think your final system is going to be more frequently used in a particular domain (for example, reading out the news, or reading out emails, or something really simple like telling the time)"
     - I also think that we can prune in real time, when we get into the studio. yk?
 
