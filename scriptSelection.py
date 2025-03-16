@@ -68,3 +68,81 @@ def scriptSelection(udcm, overallDiphoneCounts, selectionFunction = 'set', endCo
         overallDiphoneCounts = newOverallDiphoneCounts
 
     return utterancesInOrder
+
+
+def scriptSelectionHybrid(udcm, overallDiphoneCounts, selectionFunction = 'set', endCondition = 'numberChosen', endConditionParameter = 22, scoringFunction = 'proportional'):
+    # Do Aware script selection until we get all the diphones, then do the given selection function to select up to the given number of utterances :)
+    diphoneSet = set(overallDiphoneCounts.copy().keys())
+
+    utterancesInOrder = []
+
+
+    # while (len(utterancesInOrder) < endConditionParameter and len(diphoneSet) != 0):
+    # while (len(utterancesInOrder) < endConditionParameter):
+    while (len(diphoneSet) != 0):
+    # while (len(udcm) != 0):
+
+        match scoringFunction:
+            case 'proportional':
+                scores = cUSp(overallDiphoneCounts.copy())
+            case 'linear':
+                scores = cUSl(overallDiphoneCounts.copy())
+            case 'ones':
+                scores = cUSo(overallDiphoneCounts.copy())
+            case _:
+                print('uuHHH just using proportional')
+                scores = cUSp(overallDiphoneCounts)
+
+
+        sortedUtterancesList = sPUa(udcm, scores, diphoneSet)
+            
+        
+        chosenUtt = sortedUtterancesList[0][0]
+        utterancesInOrder.append(chosenUtt)
+        currentUttCountsMap = udcm.pop(chosenUtt)
+        newOverallDiphoneCounts = overallDiphoneCounts.copy()
+        for diphone in currentUttCountsMap.keys():
+            if diphone == 'total' : continue
+            newOverallDiphoneCounts[diphone] -= currentUttCountsMap[diphone]
+            if diphone in diphoneSet:
+                diphoneSet.remove(diphone)
+        overallDiphoneCounts = newOverallDiphoneCounts
+
+    while (len(utterancesInOrder) < endConditionParameter):
+
+        match scoringFunction:
+            case 'proportional':
+                scores = cUSp(overallDiphoneCounts.copy())
+            case 'linear':
+                scores = cUSl(overallDiphoneCounts.copy())
+            case 'ones':
+                scores = cUSo(overallDiphoneCounts.copy())
+            case _:
+                print('uuHHH just using proportional')
+                scores = cUSp(overallDiphoneCounts)
+
+        match selectionFunction:
+            case 'set':
+                sortedUtterancesList = sPUs(udcm, scores)
+            case 'mult':
+                sortedUtterancesList = sPUm(udcm, scores)
+            case 'aware':
+                sortedUtterancesList = sPUa(udcm, scores, diphoneSet)
+            case 'random':
+                sortedUtterancesList = sPUr(udcm)
+            case _:
+                print('uhhhhH just using set idk man')
+                sortedUtterancesList = sPUs(udcm, scores)
+        
+        chosenUtt = sortedUtterancesList[0][0]
+        utterancesInOrder.append(chosenUtt)
+        currentUttCountsMap = udcm.pop(chosenUtt)
+        newOverallDiphoneCounts = overallDiphoneCounts.copy()
+        for diphone in currentUttCountsMap.keys():
+            if diphone == 'total' : continue
+            newOverallDiphoneCounts[diphone] -= currentUttCountsMap[diphone]
+            if diphone in diphoneSet:
+                diphoneSet.remove(diphone)
+        overallDiphoneCounts = newOverallDiphoneCounts
+
+    return utterancesInOrder
