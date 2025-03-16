@@ -14,16 +14,16 @@ def readUttDataLines(filename = "simonHutts.data"):
 
 udcm, overallDiphoneCounts = readFile('simonH.txt')
 
-numberOfUtterances = 2000
+numberOfUtterances = 700 #! because ARCTIC A chooses about 700-- note that we stop early once we have all the diphones. maybe change that?
 
 chosenUtterances = scriptSelection(udcm.copy(), overallDiphoneCounts.copy(), 
-                                    selectionFunction = 'aware', scoringFunction = 'linear', endConditionParameter=numberOfUtterances)
+                                    selectionFunction = 'aware', scoringFunction = 'proportional', endConditionParameter=numberOfUtterances)
 
 utteranceDataLines = readUttDataLines("simonHutts.data")
 
 # What's interesting about this is that we want to choose a certain number of diphones, not utterances. So....
 diphonesChosen = 0
-diphoneThreshold = 10000000000
+diphoneThreshold = 1000000000000000 # this is a tool we'll use when deciding what utterances to BUILD scripts with. different thing dont even worry
 newDataLines = []
 
 for i, utterance in enumerate(chosenUtterances):
