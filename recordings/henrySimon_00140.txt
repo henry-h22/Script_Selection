@@ -1,0 +1,1 @@
+How can we reduce the number of joins?

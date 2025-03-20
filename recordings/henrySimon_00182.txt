@@ -1,0 +1,1 @@
+As we've described it so far, unit selection concatenates small fragments of waveform

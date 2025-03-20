@@ -1,0 +1,1 @@
+Will a listener notice there's a join?

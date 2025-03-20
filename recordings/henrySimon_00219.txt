@@ -1,0 +1,1 @@
+The states are these words, and we just join them up with arcs, with an end state and a start state

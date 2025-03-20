@@ -1,0 +1,1 @@
+He calls that the Independent Feature Formulation because a mismatch in one feature and a mismatch in another feature both count independently towards the total cost

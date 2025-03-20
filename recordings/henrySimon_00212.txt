@@ -1,0 +1,1 @@
+It's got the special property that each number appears in every row and every column just once

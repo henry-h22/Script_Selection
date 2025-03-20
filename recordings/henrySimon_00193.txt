@@ -1,0 +1,1 @@
+On top of that phonetic labelling (or segmentation), we need to annotate the speech with all of the supra-segmental linguistic information: all the other things that the target cost might need to query

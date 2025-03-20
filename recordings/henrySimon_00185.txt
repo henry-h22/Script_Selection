@@ -1,0 +1,1 @@
+All modern methods of speech synthesis - including unit selection that we've already covered - rely on a fairly substantial database of recorded natural speech

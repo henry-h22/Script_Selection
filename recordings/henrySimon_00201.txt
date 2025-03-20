@@ -1,0 +1,1 @@
+As with most of the examples in this part of the course, I'm drawing my lattice in terms of whole phones because it's neater

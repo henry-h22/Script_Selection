@@ -1,0 +1,1 @@
+I'm now going to count how often each letter occurs

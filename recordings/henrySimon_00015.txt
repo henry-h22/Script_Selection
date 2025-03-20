@@ -1,0 +1,1 @@
+This diagram is a way of writing down the search problem

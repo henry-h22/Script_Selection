@@ -1,0 +1,1 @@
+If the contours are identical, the RMSE is zero

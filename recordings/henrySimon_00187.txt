@@ -1,0 +1,1 @@
+Between words we always go through the short pause model, which can emit zero or more frames of silence

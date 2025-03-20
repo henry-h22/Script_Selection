@@ -1,0 +1,1 @@
+We saw how the pronunciation model was simply the dictionary from our speech synthesizer with some rule-based vowel reduction

@@ -1,0 +1,1 @@
+We could throw away sentences with very low frequency or polysyllabic words that we think our speaker will find difficult

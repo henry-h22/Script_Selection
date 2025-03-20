@@ -1,0 +1,1 @@
+For example, in the front end, things might go wrong very early in text normalisation, the wrong words are said

@@ -1,0 +1,1 @@
+It'll always give you the same sequence for the same input text

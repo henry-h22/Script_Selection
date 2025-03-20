@@ -1,0 +1,1 @@
+Our single recorded example of each diphone still needs to be manipulated with some fairly extensive signal processing

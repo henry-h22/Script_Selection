@@ -1,0 +1,1 @@
+I'm using over a thousand sentences of transcribed speech here, and in those thousand sentences there are a couple of phonemes that occurred fewer than a hundred times, regardless of the context

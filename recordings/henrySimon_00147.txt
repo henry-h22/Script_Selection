@@ -1,0 +1,1 @@
+This 3-state silence model (we'll typically call it silence, or something like that)

@@ -1,0 +1,1 @@
+Perhaps we'll normalize number of types by the length of the sentence

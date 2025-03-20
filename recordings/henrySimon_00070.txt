@@ -1,0 +1,1 @@
+In the exercise to Build your own digit recognizer, we needed to know that the beginning of this model aligned with the speech and where the end of the model aligned with the speech

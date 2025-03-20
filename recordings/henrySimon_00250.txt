@@ -1,0 +1,1 @@
+So we would replace those targets with parameters: for example, F0 or some parameterization of the spectral envelope

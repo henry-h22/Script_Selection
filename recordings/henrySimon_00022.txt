@@ -1,0 +1,1 @@
+We could look at the rate of change (the deltas)
