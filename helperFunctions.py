@@ -158,6 +158,25 @@ def resetNumberedUtts(filename = 'utts.data', scriptNameLength = 10):
     fileWrite.writelines(newLines)
 
 
+def resetNumberedUttsMLF(filename = 'utts.data', scriptNameLength = 10):
+    # Given the file name for an utts.mlf-esque file, reset the numbering system
+    fileRead = open(filename, "r")
+    currentLines = fileRead.readlines()
+    fileRead.close()
+
+    fileWrite = open(filename, "w")
+    lineNum = 1
+    newLines = []
+    for line in currentLines:
+        if '.lab' in line:
+            newLines.append(line[:(4 + scriptNameLength)] + str(lineNum).zfill(5) + line[9 + scriptNameLength:])
+            lineNum += 1
+        else:
+            newLines.append(line)
+    fileWrite.writelines(newLines)
+
+
 if __name__ == '__main__':
     # resetNumberedUtts()
-    resetNumberedUtts('allUttsRenumbered.txt', 6)
+    # resetNumberedUtts('allUttsRenumbered.txt', 6)
+    resetNumberedUttsMLF('allUTTSRenumbered.mlf', 6)
