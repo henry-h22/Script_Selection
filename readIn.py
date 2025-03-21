@@ -33,7 +33,7 @@ def readFile(filename = 'simonH.txt', scriptNameLength = 10):
         
         # Set the current utterance number
         if '.lab' in line:
-            currentUtt = line[4 + scriptNameLength : 9 + scriptNameLength] 
+            currentUtt = line[4 + scriptNameLength : 9 + scriptNameLength]
             utteranceCounter = 0
             continue
 
@@ -51,6 +51,18 @@ def readFile(filename = 'simonH.txt', scriptNameLength = 10):
         prevPhone = currentPhone
         utteranceCounter += 1
     # end loop
+
+    # add the last one in (oops!!)
+
+    # double check if this utterance actually has any utterances, and don't do anything if it doesn't!
+    if (not(utteranceCounter == 0)):
+        # store the total number of diphones in the utterance
+        currentDiphoneCounts['total'] = utteranceCounter
+
+        # store the current diphone counts map where it should go in the udcm
+        newPair = {currentUtt : currentDiphoneCounts.copy()}
+        udcm.update(newPair)
+
     fil.close()
 
     return (udcm, overallDiphoneCounts)
