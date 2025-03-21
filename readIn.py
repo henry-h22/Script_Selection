@@ -1,7 +1,7 @@
 from helperFunctions import dictionaryIncrement as dI
 
 # Take in a the filename, return a tuple of (utterance diphone counts map, overall diphones count map)
-def readFile(filename = 'simonH.txt'):
+def readFile(filename = 'simonH.txt', scriptNameLength = 10):
     udcm = {} # utterance diphone counts map, it maps utterance key strings to maps that map diphones to their counts within the utterance
     currentUtt = 'init' # e.g. 00000, 00001, etc...
     utteranceCounter = 0 # counts the number of diphones in an utterance so we can normalize for that!
@@ -33,7 +33,7 @@ def readFile(filename = 'simonH.txt'):
         
         # Set the current utterance number
         if '.lab' in line:
-            currentUtt = line[14:19] #! this line needs to change based on what the script is called
+            currentUtt = line[4 + scriptNameLength : 9 + scriptNameLength] 
             utteranceCounter = 0
             continue
 
