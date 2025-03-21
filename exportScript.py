@@ -35,7 +35,7 @@ if __name__ == '__main__':
             print('Threshold reached!', diphonesChosen)
             break
         diphonesChosen += udcm[utterance]['total']
-        newLine = utteranceDataLines[int(utterance)]
+        newLine = utteranceDataLines[int(utterance) - 1]
         newDataLines.append(newLine[:13] + str(i+1).zfill(5) + newLine[18:]) #! relies on script names being the same length as each other, and being 10 characters!
 
     newFile = open("utts.data", "w")
