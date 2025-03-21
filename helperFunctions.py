@@ -160,4 +160,4 @@ def resetNumberedUtts(filename = 'utts.data', scriptNameLength = 10):
 
 if __name__ == '__main__':
     # resetNumberedUtts()
-    resetNumberedUtts('allUttsRenumbered', 6)
+    resetNumberedUtts('allUttsRenumbered.txt', 6)
