@@ -14,7 +14,6 @@ def readUttDataLines(filename = "simonHutts.data"):
 
 def createIndividualVoiceDatabase(mlfFile = 'allUTTSRenumbered.mlf', diphoneThreshold = 222222, outputFilename = 'newnewnewutts.data'):
     udcm, overallDiphoneCounts = readFile(mlfFile, scriptNameLength = 6)
-    # print(udcm)
 
     numberOfUtterances = len(udcm.keys()) #! we want EVERY utterance chosen, thanks
 
@@ -41,5 +40,7 @@ def createIndividualVoiceDatabase(mlfFile = 'allUTTSRenumbered.mlf', diphoneThre
     newFile.writelines(newDataLines)
     newFile.close()
 
-if __name__ == '__main__':
-    createIndividualVoiceDatabase()
+# if __name__ == '__main__':
+#     createIndividualVoiceDatabase(mlfFile='arcticUTTS.mlf', outputFilename='zzzacrcitfun.data', diphoneThreshold=9990)
+#     createIndividualVoiceDatabase(mlfFile='henrySimonUTTS.mlf', outputFilename='zzzhenrySimFun.data', diphoneThreshold=9990)
+#     createIndividualVoiceDatabase(outputFilename='zzzCOmbined.data', diphoneThreshold=9990)
