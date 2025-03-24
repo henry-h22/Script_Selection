@@ -51,4 +51,18 @@ def readFilePhoneme(filename = 'simonH.txt', scriptNameLength = 10):
     # end loop
     fil.close()
 
+
+    # add the last one in (oops!!)
+
+    # double check if this utterance actually has any utterances, and don't do anything if it doesn't!
+    if (not(utteranceCounter == 0)):
+        # store the total number of diphones in the utterance
+        currentPhoneCounts['total'] = utteranceCounter
+
+        # store the current diphone counts map where it should go in the udcm
+        newPair = {currentUtt : currentPhoneCounts.copy()}
+        upcm.update(newPair)
+
+    fil.close()
+
     return (upcm, overallPhoneCounts)
