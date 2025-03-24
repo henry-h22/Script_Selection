@@ -51,10 +51,10 @@ def evaluateUtteranceScoring(utteranceList, udcm, overallDiphoneCounts, subplotT
     # return utteranceDiphoneCounts
 
 
-def visuallyEvaluateUtterancesScoring(utteranceListList, udcm, overallDiphoneCounts, costFunctions, verbose = False):
+def visuallyEvaluateUtterancesScoring(utteranceListList, udcm, overallDiphoneCounts, costFunctions, verbose = False, graphTitle = 'Diphone Distribution over Unit Cost Function'):
     fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2,2, sharex=True, sharey=True)
     
-    fig.suptitle('Diphone Distribution over Unit Cost Function')
+    fig.suptitle(graphTitle)
 
     evaluateUtteranceScoring(utteranceListList[0], udcm.copy(), overallDiphoneCounts.copy(), ax1, costFunctions[0], verbose)
     evaluateUtteranceScoring(utteranceListList[1], udcm.copy(), overallDiphoneCounts.copy(), ax2, costFunctions[1], verbose)

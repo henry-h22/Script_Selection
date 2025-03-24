@@ -31,6 +31,6 @@ if __name__ == '__main__':
     
     utteranceListList = [arctic, combo, simon, blank]
     namesList = ['Arctic', 'Combo', 'Phoneticist', '']
-    evalu(utteranceListList, upcm.copy(), overallPhoneCounts.copy(), namesList, verbose=True)
-    evalu(utteranceListList, udcm.copy(), overallDiphoneCounts.copy(), namesList, verbose=True)
+    evalu(utteranceListList, upcm.copy(), overallPhoneCounts.copy(), namesList, verbose=True, graphTitle = 'Phone Distribution by Unit Selection Voice')
+    evalu(utteranceListList, udcm.copy(), overallDiphoneCounts.copy(), namesList, verbose=True, graphTitle = 'Diphone Distribution by Unit Selection Voice')
     
