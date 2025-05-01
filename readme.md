@@ -1,8 +1,10 @@
 Hi everyone I'm doing a course on speech synthesis and for part of my project I'm implementing a greedy algorithm that tries to create an optimal ordering of a set of utterances such that for every new utterance in the list we get the maximum number of new diphones. thanks bye.
 
-My notes are all here, I went a bit crazy. The final product-- the report, as well as demo audios of the final system built in Festival, are in the Report folder.
+The final product-- the report, as well as demo audios of the final system built in Festival, are in the Report folder.
 
 <!---
+# My notes are all here, I went a bit crazy. 
+
 Next steps:
 
 determine hypotheses, finalize methodology, run it, WRITE DOWN numbers and SAVE AND LABEL figures!!
