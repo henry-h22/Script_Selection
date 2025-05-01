@@ -1,5 +1,8 @@
 Hi everyone I'm doing a course on speech synthesis and for part of my project I'm implementing a greedy algorithm that tries to create an optimal ordering of a set of utterances such that for every new utterance in the list we get the maximum number of new diphones. thanks bye.
 
+My notes are all here, I went a bit crazy. The final product-- the report, as well as demo audios of the final system built in Festival, are in the Report folder.
+
+<!---
 Next steps:
 
 determine hypotheses, finalize methodology, run it, WRITE DOWN numbers and SAVE AND LABEL figures!!
@@ -119,3 +122,5 @@ We train a neural language model to generate an acoustic code matrix C condition
 We prepend the transcription phoneme of the enrolled speech to the phoneme sequence of the given sentence as the phoneme prompt, and use the first layer acoustic token of the enrolled speech as an acoustic prefix
     - A sentence from VALL-E paper, edited to remove a token that I myself didn't even know how to pronounce
     - Totally a cool sentence u know the vibes
+
+    --->
